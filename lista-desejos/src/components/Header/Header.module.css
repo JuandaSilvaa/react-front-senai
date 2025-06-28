@@ -1,0 +1,22 @@
+.header {
+  background: rgba(50, 50, 50, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(186, 185, 185, 0.95);
+  padding: 2rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #f3f3f3;
+  margin:  0 0 1.5rem 0;
+}
