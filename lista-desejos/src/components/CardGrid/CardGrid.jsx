@@ -1,19 +1,18 @@
-import styles from './CardGrid.module.css'
+import styles from "./CardGrid.module.css";
 import { Card } from "../Card/Card";
 
-export const CardGrid = () => {
+export const CardGrid = ({ wishs, handleDelete }) => {
   return (
     <div className={styles.grid}>
-      <Card
-        name="Ps5"
-        description="Para jogar"
-        image="https://http2.mlstatic.com/D_NQ_NP_697302-MLU78076147107_072024-O.webp"
-      />
-            <Card
-        name="Ps5"
-        description="Para jogar"
-        image="https://http2.mlstatic.com/D_NQ_NP_697302-MLU78076147107_072024-O.webp"
-      />
+      {wishs.map((wish, index) => (
+        <Card
+          key={ `${wish.name}-${index}` }
+          name={wish.name}
+          description={wish.description}
+          image={wish.urlImage}
+          onDelete={() => handleDelete (index)}
+        />
+      ))}
     </div>
   );
 };
