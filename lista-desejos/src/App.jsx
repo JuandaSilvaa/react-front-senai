@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import styles from "./App.module.css";
 import { CardGrid } from "./components/CardGrid/CardGrid";
 import { Footer } from "./components/Footer/Footer";
@@ -7,11 +7,13 @@ import { AddItemForm } from "./components/AddItemForm/AddItemForm";
 
 function App() {
   const [wishs, setWishs] = useState([]);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
   const [form, setForm] = useState({
     name: "",
     description: "",
     urlImage: "",
+    date: "",
   });
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,13 +23,17 @@ function App() {
       name: "",
       description: "",
       urlImage: "",
+      date: "",
     });
   };
 
-  const handleDelete = (indexToDelete) => {
-    const updatedWish = wishs.filter((_, index) => index !== indexToDelete)
-    setWishs(updatedWish)
-  }
+  const handleDelete = useCallback(
+    (indexToDelete) => {
+      const updatedWish = wishs.filter((_, index) => index !== indexToDelete);
+      setWishs(updatedWish);
+    },
+    [wishs]
+  );
 
   useEffect(() => {
     const savedWishs = localStorage.getItem("userWishs");
@@ -41,25 +47,48 @@ function App() {
         console.error(error);
       }
     }
-    setLoading(false)
+    setLoading(false);
   }, []);
 
   useEffect(() => {
-    if(!loading){
+    if (!loading) {
       localStorage.setItem("userWishs", JSON.stringify(wishs));
     }
   }, [wishs]);
 
+  const filteredWishs = useMemo(() => {
+    if (!search.trim()) {
+      return wishs;
+    }
+    return wishs.filter((wish) => {
+      const searchLower = search.toLocaleLowerCase();
+      return (
+        wish.name.toLocaleLowerCase().includes(searchLower) ||
+        wish.description.toLocaleLowerCase().includes(searchLower)
+      );
+    });
+  }, [search, wishs]);
+
+  const onSearch = useCallback(
+    (searchValue) => {
+      setSearch(searchValue)
+    }
+  )
+
+  const onClear = useCallback(() => {
+    setSearch("")
+  })
+
   return (
     <div className={styles.app}>
-      <Header />
+      <Header onSearch={onSearch} onClear={onClear}/>
       <main className={styles.main}>
         <AddItemForm
           handleSubmit={handleSubmit}
           form={form}
           setForm={setForm}
         />
-        <CardGrid wishs={wishs} handleDelete={handleDelete} />
+        <CardGrid wishs={filteredWishs} handleDelete={handleDelete} />
       </main>
       <Footer />
     </div>

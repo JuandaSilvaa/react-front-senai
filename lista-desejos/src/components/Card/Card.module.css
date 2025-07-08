@@ -4,6 +4,7 @@
     overflow: hidden;
     box-shadow:  0 4px 6px rgba(0, 0, 0, 0.5), 0 1px rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(226, 232, 240, 0.8);
+    position: relative;
 }
 
 .imgContainer {
@@ -38,6 +39,29 @@
     overflow: hidden;
 }
 
+.delete{
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    border: none;
+    border-radius: 50%;
+    background: rgba(171, 28, 28, 0.9);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.card:hover .delete{
+    opacity: 1;
+}
+
+.delete:houver {
+    transform: scale(1.5);
+    transform: translateY(-1px);
+}
 @media (max-width: 768px) {
     .content{
         padding: 1.25;
