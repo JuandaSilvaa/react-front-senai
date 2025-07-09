@@ -3,8 +3,6 @@ import { Link, NavLink } from "react-router";
 export const Navbar = () => {
   return (
     <>
-      <Link to="/">home</Link>
-      <br />
       <NavLink
         to="/"
         style={({ isActive }) => ({
@@ -15,17 +13,10 @@ export const Navbar = () => {
       </NavLink>
       <br />
       <NavLink
-        to="/contact"
+        to="/detalhes"
         className={({ isActive }) => (isActive ? "link-ativo" : "")}
       >
-        contatos
-      </NavLink>
-      <br />
-      <NavLink
-        to="/deshboard"
-        className={({ isActive }) => (isActive ? "link-ativo" : "")}
-      >
-        configurações
+        Detalhes
       </NavLink>
     </>
   );
