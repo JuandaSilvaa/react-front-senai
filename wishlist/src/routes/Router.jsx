@@ -1,7 +1,8 @@
+import { useCallback, useState } from "react";
 import { Route, Routes } from "react-router";
 import App from "../App";
 import { Layout } from "../components/Layout/Layout";
-import { useCallback, useState } from "react";
+import { WishDetail } from "../components/WishDetail/WishDetail";
 
 export const Router = () => {
     const [search, setSearch] = useState("");
@@ -15,6 +16,9 @@ export const Router = () => {
     <Routes>
       <Route element={<Layout onClear={onClear} onSearch={onSearch}/>}>
         <Route path="/wishlist" element={<App search={search} />} />
+        <Route path="/wishlist/:id" element={<WishDetail/>}/>
+        <Route path="/*" element={<App search={search} />} />
+
       </Route>
     </Routes>
   );

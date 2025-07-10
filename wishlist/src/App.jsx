@@ -3,15 +3,16 @@ import styles from "./App.module.css";
 import { CardGrid } from "./components/CardGrid/CardGrid";
 import { AddItemForm } from "./components/AddItemForm/AddItemForm";
 
-function App({search}) {
+function App({ search }) {
   const [wishs, setWishs] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   const [form, setForm] = useState({
     name: "",
     description: "",
     urlImage: "",
     date: "",
+    id: "",
   });
 
   const filteredWishs = useMemo(() => {
@@ -27,8 +28,6 @@ function App({search}) {
     });
   }, [search, wishs]);
 
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const updatedWishs = [...wishs, form];
@@ -38,6 +37,7 @@ function App({search}) {
       description: "",
       urlImage: "",
       date: "",
+      id: "",
     });
   };
 
